@@ -139,9 +139,13 @@ sub {
   bottom: -.25em
 }
 
-a:hover {
-  text-decoration: underline
+a {
+  color: black;
 }
+a:hover {
+  /*text-decoration: underline*/
+}
+
 
 ins,
 a {
