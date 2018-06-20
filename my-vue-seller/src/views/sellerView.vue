@@ -14,6 +14,7 @@
           <span class="isCollect">已收藏</span>
         </div>
       </div>
+      <hr class="hr1px"></hr>
       <div class="section_1_2">
         <div>
           <p>起送价</p>
@@ -85,5 +86,33 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
   @import '../../static/css/mixin.styl'
-
+  .content
+    background: #eee
+    &>section
+      margin-bottom: 0.533333rem
+      border-top: 1px solid #ccc
+      border-bottom: 1px solid #ccc
+      padding: 0.533333rem
+      background-color: white
+      .hr1px
+        border: none
+        height: 0.026667rem
+        background-color: #ccc
+    .section_1
+      .section_1_1
+        display: flex
+        justify-content: space-between
+        padding-bottom: 0.533333rem
+        .seller_info
+          .nums
+            display: flex
+            margin-top: 0.533333rem
+        .collect
+          display: flex
+          flex-direction: column
+          align-items: center
+          .collect_logo
+            width: 0.533333rem
+            height: 0.533333rem
+            bg('~images/heart')
 </style>
