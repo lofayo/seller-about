@@ -59,7 +59,7 @@
     data() {
       return {
         seller: data.seller,
-        isShowDetails: true
+        isShowDetails: false
 
       }
     },

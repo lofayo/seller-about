@@ -2,14 +2,17 @@
   <div id="app">
     <headerComponent />
     <router-view/>
+    <shopCarComponent />
   </div>
 </template>
 
 <script>
   import headerComponent from '@/components/headerComponent'
+  import shopCarComponent from '@/components/shopCarComponent'
   export default {
     components: {
-      headerComponent
+      headerComponent,
+      shopCarComponent
     }
   }
 </script>

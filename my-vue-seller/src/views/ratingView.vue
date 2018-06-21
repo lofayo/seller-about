@@ -25,15 +25,15 @@
     </section>
     <section class="rating_box">
       <div class="rating_header">
-        <p>全部 {{ratings.length}}</p>
-        <p>满意 {{ratings.filter((item)=> item.rateType === 0).length}}</p>
-        <p>不满意 {{ratings.filter((item)=> item.rateType === 1).length}}</p>
+        <p :class='{active: currentRateType === 2}' @click='filterRatingArray(2,isOnlyContent)'>全部 {{ratings.length}}</p>
+        <p :class='{active: currentRateType === 0}' @click='filterRatingArray(0,isOnlyContent)'>满意 {{ratings.filter((item)=> item.rateType === 0).length}}</p>
+        <p :class='{active: currentRateType === 1}' @click='filterRatingArray(1,isOnlyContent)'>不满意 {{ratings.filter((item)=> item.rateType === 1).length}}</p>
       </div>
       <div class="only_look" @click='checkOnlyContent'>
         <span :class="{only_content:isOnlyContent}"></span>只看有内容的评价
       </div>
       <ul class="rating_lists">
-        <li v-for='(rating,index) of ratings' :key='index'>
+        <li v-for='(rating,index) of filterRatings' :key='index'>
           <div class="deliver_mes">
             <img class="customer_logo" :src="rating.avatar" alt="">
             <div>
@@ -67,7 +67,9 @@ export default {
     return {
       ratings: data.ratings,
       seller: data.seller,
-      isOnlyContent: false
+      filterRatings: data.ratings,
+      isOnlyContent: false,
+      currentRateType: 2
     }
   },
   components:{
@@ -83,8 +85,27 @@ export default {
       let m = date.getMinutes(); 
       return Y+M+D+h+m;  
     },
+    filterRatingArray(rateType, isOnlyContent) {
+      this.currentRateType = rateType
+      if (isOnlyContent) {
+        this.filterRatings = this.ratings.filter(item => {
+          if (rateType !==2 ) {
+            return item.text !== '' && item.rateType === rateType 
+          }
+          return item.text !== ''
+        })
+      } else {
+        this.filterRatings = this.ratings.filter(item => {
+          if (rateType !== 2)  {
+            return item.rateType === rateType
+          }
+          return true
+        })
+      }
+    },
     checkOnlyContent() {
       this.isOnlyContent = !this.isOnlyContent
+      this.filterRatingArray(this.currentRateType,this.isOnlyContent)
     }  
   }
 
@@ -129,10 +150,14 @@ export default {
         &>div
           display: flex
     .rating_box
+      margin-bottom: 0
       .rating_header
         display: flex
         padding-bottom: 0.266667rem
         border-bottom: 1px solid #ccc
+        .active
+          background: yellowgreen
+          color: black
         &>p
           padding: 0.266667rem
           margin-right: 0.266667rem
