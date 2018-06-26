@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import goodsView from '@/views/goodsView'
 import ratingView from '@/views/ratingView'
 import sellerView from '@/views/sellerView'
+import goodsDetailView from '@/views/goodsDetailView'
 
 import bigStarComponent from '@/components/bigStarComponent'
 
@@ -23,6 +24,9 @@ export default new Router({
     }, {
       path: '/seller',
       component: sellerView
+    }, {
+      path: '/detail/:index1/:index2',
+      component: goodsDetailView
     }
   ]
 })

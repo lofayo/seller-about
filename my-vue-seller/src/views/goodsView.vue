@@ -6,22 +6,24 @@
       </ul>
     </div>
     <div class="category_items">
-      <div class="item" v-for='good of goods'>
+      <div class="item" v-for='(good,index1) of goods'>
         <p class="item_title">{{good.name}}</p>
-        <div class="item_info" v-for='food of good.foods'>
-          <img class="food_img" :src="food.icon" alt="">
-          <div class="food_info">
-            <p class="food_title">{{food.name}}</p>
-            <p>
-              <span>月售{{food.sellCount}}份</span>
-              <span>好评率{{food.rating}}%</span>
-            </p>
-            <p class="price">
-              <span class="now_price">￥{{food.price}}</span>
-              <span v-if='food.oldPrice' class="history_price">￥{{food.oldPrice}}</span>
-            </p>
-          </div>
-          <div class="add_goods"></div>
+        <div class="item_info" v-for='(food,index2) of good.foods'>
+          <router-link :to="'/detail/'+index1+'/'+index2">
+            <img class="food_img" :src="food.icon" alt="">
+            <div class="food_info">
+              <p class="food_title">{{food.name}}</p>
+              <p>
+                <span>月售{{food.sellCount}}份</span>
+                <span>好评率{{food.rating}}%</span>
+              </p>
+              <p class="price">
+                <span class="now_price">￥{{food.price}}</span>
+                <span v-if='food.oldPrice' class="history_price">￥{{food.oldPrice}}</span>
+              </p>
+            </div>
+            <div class="add_goods"></div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -72,42 +74,43 @@
         background: #eee
         padding-left: 0.533333rem
       .item_info
-        position: relative
-        display: flex
-        align-items: center
-        padding: 0.533333rem 0
-        margin: 0 0.533333rem
-        border-bottom: 0.026667rem solid #ccc
-        .food_img
-          width: 1.52rem
-          height: 1.52rem
-          margin-right: 0.266667rem
-        .food_info
+        &>a
+          position: relative
           display: flex
-          flex-direction: column
-          justify-content: space-between
-          flex: none
-          .food_title
-            font-size: 0.373333rem
-            font-weight: bold
-          &>p:nth-child(2)
-            color: #999
-          .price
-            .now_price
-              color: red
+          align-items: center
+          padding: 0.533333rem 0
+          margin: 0 0.533333rem
+          border-bottom: 0.026667rem solid #ccc
+          .food_img
+            width: 1.52rem
+            height: 1.52rem
+            margin-right: 0.266667rem
+          .food_info
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+            flex: none
+            .food_title
               font-size: 0.373333rem
               font-weight: bold
-            .history_price
-              font-weight: bold
-              text-decoration: line-through
-        .add_goods
-          position: absolute
-          right: 0
-          bottom: 0.133333rem
-          width: 1.066667rem
-          height: 1.066667rem
-          margin-left: 0.266667rem
-          bg('~images/add')
+            &>p:nth-child(2)
+              color: #999
+            .price
+              .now_price
+                color: red
+                font-size: 0.373333rem
+                font-weight: bold
+              .history_price
+                font-weight: bold
+                text-decoration: line-through
+          .add_goods
+            position: absolute
+            right: 0
+            bottom: 0.133333rem
+            width: 1.066667rem
+            height: 1.066667rem
+            margin-left: 0.266667rem
+            bg('~images/add')
       .item_info:last-child
         border: none
 </style>
