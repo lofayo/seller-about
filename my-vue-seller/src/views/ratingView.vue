@@ -87,21 +87,19 @@ export default {
     },
     filterRatingArray(rateType, isOnlyContent) {
       this.currentRateType = rateType
-      if (isOnlyContent) {
-        this.filterRatings = this.ratings.filter(item => {
-          if (rateType !==2 ) {
+      this.filterRatings = this.ratings.filter(item => {
+        if (isOnlyContent) {
+          if (rateType !== 2) {
             return item.text !== '' && item.rateType === rateType 
           }
           return item.text !== ''
-        })
-      } else {
-        this.filterRatings = this.ratings.filter(item => {
-          if (rateType !== 2)  {
-            return item.rateType === rateType
+        } else {
+          if (rateType !== 2) {
+            return item.rateType === rateType 
           }
           return true
-        })
-      }
+        }
+      })
     },
     checkOnlyContent() {
       this.isOnlyContent = !this.isOnlyContent

@@ -45,21 +45,43 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
   @import '../../static/css/mixin.styl'
-  .content
-    display: flex
-    .category
-      .category_lists
-        width: 2.16rem
-        box-sizing: border-box
-        padding: 0 0.266667rem
-        background: #eee
+    .content
+      display: flex
+      flex: 1
+      .category
+        .category_lists
+          width: 2.16rem
+          box-sizing: border-box
+          padding: 0 0.266667rem
+          background: #eee
+          height: 66vh
+          overflow: auto
+          &>li
+            height: 1.48rem
+            display: flex
+            align-items: center
+            border-bottom: 0.026667rem solid #ccc
+          &>li:last-child
+            border: none
+      .category_items
         height: 66vh
         overflow: auto
-        &>li
-          height: 1.48rem
+        flex: 1
+        .item_title
+          color: #666
+          height: 0.733333rem
+          line-height: 0.733333rem
+          border-left: 0.053333rem solid #999
+          background: #eee
+          padding-left: 0.533333rem
+        .item_info
+          position: relative
           display: flex
           align-items: center
+          padding: 0.533333rem 0
+          margin: 0 0.533333rem
           border-bottom: 0.026667rem solid #ccc
+<<<<<<< HEAD
         &>li:last-child
           border: none
     .category_items
@@ -81,6 +103,8 @@
           padding: 0.533333rem 0
           margin: 0 0.533333rem
           border-bottom: 0.026667rem solid #ccc
+=======
+>>>>>>> 9fbf30b803f985badcaef01a96c1c08dccf1115c
           .food_img
             width: 1.52rem
             height: 1.52rem
@@ -106,6 +130,7 @@
           .add_goods
             position: absolute
             right: 0
+<<<<<<< HEAD
             bottom: 0.133333rem
             width: 1.066667rem
             height: 1.066667rem
@@ -113,4 +138,14 @@
             bg('~images/add')
       .item_info:last-child
         border: none
+=======
+            bottom: 0.266667rem
+            width: 0.64rem
+            height: 0.64rem
+            bg('~images/add')
+        .item_info:last-child
+          border: none
+    
+
+>>>>>>> 9fbf30b803f985badcaef01a96c1c08dccf1115c
 </style>

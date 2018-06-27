@@ -1,9 +1,47 @@
 <template>
   <div class="content">
-    <div class="shop_car"></div>
-    <div class="money">￥0</div>
-    <div class="other_pay">另需配送费￥4元</div>
-    <div class="check">￥20起送</div>
+    <div class="shop_car_goods_lists">
+      <p class="shop_car_title">
+        <span>购物车</span>
+        <span class="clear">清空</span>
+      </p>
+      <ul class="shop_goods_lists">
+        <li>
+          <span>莲子核桃黑米粥</span>
+          <span class="price">￥10</span>
+          <span class="minus"></span>
+          <span>1</span>
+          <span class="add"></span>
+        </li>
+        <li>
+          <span>莲子核桃黑米粥</span>
+          <span class="price">￥10</span>
+          <span class="minus"></span>
+          <span>1</span>
+          <span class="add"></span>
+        </li>
+        <li>
+          <span>莲子核桃黑米粥</span>
+          <span class="price">￥10</span>
+          <span class="minus"></span>
+          <span>1</span>
+          <span class="add"></span>
+        </li>
+        <li>
+          <span>莲子核桃黑米粥</span>
+          <span class="price">￥10</span>
+          <span class="minus"></span>
+          <span>1</span>
+          <span class="add"></span>
+        </li>
+      </ul>
+    </div>
+    <div class="shop_car_init">
+      <div class="shop_car"></div>
+      <div class="money">￥0</div>
+      <div class="other_pay">另需配送费￥4元</div>
+      <div class="check">￥20起送</div>
+    </div>
   </div>
 </template>
 
@@ -17,33 +55,76 @@ export default {
 <style lang="stylus" scoped>
   @import '../../static/css/mixin.styl'
   .content
-    display: flex
-    height: 1.466667rem
-    background: #778899 
-    align-items: center
-    color: white
     position: relative
-    .shop_car
-      width: 1.2rem
-      height: 1.2rem
-      bg('~images/shop_car')
-      background-size: 0.6rem 0.6rem
-      background-color: #707070
-      border: 0.133333rem solid #778899
-      border-radius: 50%
-      margin-top: -0.533333rem
-      margin-left: 0.533333rem
-    .money
-      padding: 0.133333rem 0.533333rem
-      border-right: 0.026667rem solid #ccc
-    .other_pay
-      padding: 0.133333rem 0.533333rem
-      flex: 1
-    .check
-      width: 2.84rem
-      height: 100%
+    .shop_car_goods_lists
+      background: white
+      position: absolute
+      transform: translate(0, -100%)
+      width: 100%
+      padding-bottom: 0.533333rem
+      box-shadow: 0 -0.026667rem 0.133333rem 0.026667rem #ccc
+      .shop_car_title
+        height: 1.066667rem
+        padding: 0 0.533333rem
+        background: #eee
+        display: flex
+        justify-content: space-between
+        align-items: center
+        border-bottom: 0.026667rem solid #ccc
+        .clear
+          color: blue
+      .shop_goods_lists
+        &>li
+          height: 1.2rem
+          padding-right: 0.533333rem
+          display: flex
+          justify-content: space-between
+          align-items: center
+          border-bottom: 0.026667rem solid #ccc
+          &>span
+            margin-left: 0.533333rem
+          .price
+            font-size: 0.373333rem
+            font-weight: bold
+            color: red
+            flex: 1
+            text-align: right
+          .minus
+            width: 0.64rem
+            height: 0.64rem
+            bg('~images/minus')
+          .add
+            width: 0.64rem
+            height: 0.64rem
+            bg('~images/add')
+    .shop_car_init
       display: flex
+      height: 1.333333rem
+      background: #778899 
       align-items: center
-      justify-content: center
-      background: #707070
+      color: white
+      position: relative
+      .shop_car
+        width: 1.2rem
+        height: 1.2rem
+        bg('~images/shop_car')
+        background-size: 0.6rem 0.6rem
+        background-color: #707070
+        border: 0.133333rem solid #778899
+        border-radius: 50%
+        margin-top: -0.533333rem
+        margin-left: 0.533333rem
+      .money
+        padding: 0.133333rem 0.533333rem
+        border-right: 0.026667rem solid #ccc
+      .other_pay
+        padding: 0.133333rem 0.533333rem
+        flex: 1
+      .check
+        width: 2.84rem
+        height: 100%
+        display: flex
+        align-items: center
+        justify-content: center
+        background: #707070
 </style>
