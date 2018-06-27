@@ -42,7 +42,7 @@
       <div class="other_pay">另需配送费￥4元</div>
       <div class="check">￥20起送</div>
     </div>
-    <div class="mask1">
+    <div class="mask" :class='{active: isShowMask}'>
       
     </div>
   </div>
@@ -52,12 +52,14 @@
 export default {
   data() {
     return {
-      isShowShopGoods: false
+      isShowShopGoods: false,
+      isShowMask: false
     }
   },
   methods: {
     showHideShopGoods() {
       this.isShowShopGoods = !this.isShowShopGoods
+      this.isShowMask = !this.isShowMask
     }
   } 
 }
@@ -68,36 +70,25 @@ export default {
   @import '../../static/css/mixin.styl'
   .content
     position: relative
-    .mask1
+    .mask
       position: fixed
       left: 0
       top: 0
-      width: 20vw
-      height: 20vh
-      background: pink
-      transform: translate(100px,100px)
-      &::before
-        content: ''
-        position: fixed
-        left: 0
-        top: 0
-        width: 100vw
-        height: 100vh
-        background: #000
+      width: 100vw
+      height: 100vh
+      background: rgba(0,0,0,0.2)
+      opacity: 0
+      z-index: -1
+      &.active
+        z-index: 0
+        opacity: 1
     .shop_car_goods_lists
-      &::before
-        content: ''
-        position: fixed
-        left: 0
-        top: 0
-        width: 100vw
-        height: 100vh
-        background: #000
       background: white
       position: fixed
       left: 0
       bottom: 1.333333rem
       transform: translate(0, 100%)
+      z-index: 1
       transition: all 0.5s
       width: 100%
       padding-bottom: 0.533333rem
@@ -137,8 +128,8 @@ export default {
             height: 0.64rem
             bg('~images/add')
    
-    .active
-      transform: translate(0, 0)
+      &.active
+        transform: translate(0, 0)
     .shop_car_init
       display: flex
       height: 1.333333rem
@@ -148,6 +139,7 @@ export default {
       position: fixed
       bottom: 0
       left: 0
+      z-index: 1
       .shop_car
         width: 1.2rem
         height: 1.2rem
