@@ -21,10 +21,11 @@
               <span v-if='food.oldPrice' class="history_price">￥{{food.oldPrice}}</span>
             </p>
           </div>
-          <div class="add_goods"></div>
+          <div class="add_goods" @click='parabola'></div>
         </div>
       </div>
     </div>
+    <div id="ball"></div>
   </div>
 </template>
 
@@ -34,6 +35,22 @@
     data() {
       return {
         goods: data.goods
+      }
+    },
+    methods: {
+      parabola(evt) {
+        let $ball = document.getElementById('ball')
+        console.log(evt.pageX,evt.pageY)
+        $ball.style.display = 'block';
+        $ball.style.top = evt.pageY+'px';
+        $ball.style.left = evt.pageX+'px';
+        $ball.style.transition = 'left 0s, top 0s';
+        setTimeout(()=>{
+            $ball.style.top = '614px';
+            $ball.style.left = '45px';
+            $ball.style.transition = 'left 1s linear, top 1s ease-in';
+        }, 20)
+
       }
     }
     
@@ -46,6 +63,14 @@
     .content
       display: flex
       flex: 1
+      #ball
+        display: none
+        width: 0.32rem
+        height: 0.32rem
+        border-radius: 50%
+        background: green
+        position: fixed
+        transition: left 1s linear, top 1s ease-in
       .category
         .category_lists
           width: 2.16rem
@@ -108,6 +133,7 @@
             width: 0.64rem
             height: 0.64rem
             bg('~images/add')
+            
         .item_info:last-child
           border: none
     
