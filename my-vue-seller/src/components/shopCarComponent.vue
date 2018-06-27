@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="shop_car_goods_lists">
+    <div class="shop_car_goods_lists" :class='{active: isShowShopGoods}'>
       <p class="shop_car_title">
         <span>购物车</span>
         <span class="clear">清空</span>
@@ -36,18 +36,32 @@
         </li>
       </ul>
     </div>
-    <div class="shop_car_init">
+    <div class="shop_car_init" @click='showHideShopGoods'>
       <div class="shop_car"></div>
       <div class="money">￥0</div>
       <div class="other_pay">另需配送费￥4元</div>
       <div class="check">￥20起送</div>
+    </div>
+    <div class="mask" :class='{active: isShowMask}'>
+      
     </div>
   </div>
 </template>
 
 <script>
 export default {
- 
+  data() {
+    return {
+      isShowShopGoods: false,
+      isShowMask: false
+    }
+  },
+  methods: {
+    showHideShopGoods() {
+      this.isShowShopGoods = !this.isShowShopGoods
+      this.isShowMask = !this.isShowMask
+    }
+  } 
 }
 </script>
 
@@ -56,10 +70,26 @@ export default {
   @import '../../static/css/mixin.styl'
   .content
     position: relative
+    .mask
+      position: fixed
+      left: 0
+      top: 0
+      width: 100vw
+      height: 100vh
+      background: rgba(0,0,0,0.2)
+      opacity: 0
+      z-index: -1
+      &.active
+        z-index: 0
+        opacity: 1
     .shop_car_goods_lists
       background: white
-      position: absolute
-      transform: translate(0, -100%)
+      position: fixed
+      left: 0
+      bottom: 1.333333rem
+      transform: translate(0, 100%)
+      z-index: 1
+      transition: all 0.5s
       width: 100%
       padding-bottom: 0.533333rem
       box-shadow: 0 -0.026667rem 0.133333rem 0.026667rem #ccc
@@ -97,13 +127,19 @@ export default {
             width: 0.64rem
             height: 0.64rem
             bg('~images/add')
+   
+      &.active
+        transform: translate(0, 0)
     .shop_car_init
       display: flex
       height: 1.333333rem
       background: #778899 
       align-items: center
       color: white
-      position: relative
+      position: fixed
+      bottom: 0
+      left: 0
+      z-index: 1
       .shop_car
         width: 1.2rem
         height: 1.2rem

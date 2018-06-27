@@ -8,6 +8,7 @@
     <div class="category_items">
       <div class="item" v-for='(good,index1) of goods'>
         <p class="item_title">{{good.name}}</p>
+<<<<<<< HEAD
         <div class="item_info" v-for='(food,index2) of good.foods'>
           <router-link :to="'/detail/'+index1+'/'+index2">
             <img class="food_img" :src="food.icon" alt="">
@@ -24,9 +25,26 @@
             </div>
             <div class="add_goods"></div>
           </router-link>
+=======
+        <div class="item_info" v-for='food of good.foods'>
+          <img class="food_img" :src="food.icon" alt="">
+          <div class="food_info">
+            <p class="food_title">{{food.name}}</p>
+            <p>
+              <span>月售{{food.sellCount}}份</span>
+              <span>好评率{{food.rating}}%</span>
+            </p>
+            <p class="price">
+              <span class="now_price">￥{{food.price}}</span>
+              <span v-if='food.oldPrice' class="history_price">￥{{food.oldPrice}}</span>
+            </p>
+          </div>
+          <div class="add_goods" @click='parabola'></div>
+>>>>>>> 61e6ffd783f680c174876d0294fc432f9ece0e1c
         </div>
       </div>
     </div>
+    <div id="ball"></div>
   </div>
 </template>
 
@@ -36,6 +54,22 @@
     data() {
       return {
         goods: data.goods
+      }
+    },
+    methods: {
+      parabola(evt) {
+        let $ball = document.getElementById('ball')
+        console.log(evt.pageX,evt.pageY)
+        $ball.style.display = 'block';
+        $ball.style.top = evt.pageY+'px';
+        $ball.style.left = evt.pageX+'px';
+        $ball.style.transition = 'left 0s, top 0s';
+        setTimeout(()=>{
+            $ball.style.top = '614px';
+            $ball.style.left = '45px';
+            $ball.style.transition = 'left 1s linear, top 1s ease-in';
+        }, 20)
+
       }
     }
     
@@ -48,6 +82,14 @@
     .content
       display: flex
       flex: 1
+      #ball
+        display: none
+        width: 0.32rem
+        height: 0.32rem
+        border-radius: 50%
+        background: green
+        position: fixed
+        transition: left 1s linear, top 1s ease-in
       .category
         .category_lists
           width: 2.16rem
@@ -143,6 +185,7 @@
             width: 0.64rem
             height: 0.64rem
             bg('~images/add')
+            
         .item_info:last-child
           border: none
     
