@@ -42,7 +42,7 @@
       <div class="other_pay">另需配送费￥4元</div>
       <div class="check">￥20起送</div>
     </div>
-    <div class="mask" :class='{active: isShowMask}'>
+    <div class="mask" @click='showHideShopGoods' :class='{active: isShowMask}'>
       
     </div>
   </div>
@@ -136,9 +136,7 @@ export default {
       background: #778899 
       align-items: center
       color: white
-      position: fixed
-      bottom: 0
-      left: 0
+      position: relative
       z-index: 1
       .shop_car
         width: 1.2rem

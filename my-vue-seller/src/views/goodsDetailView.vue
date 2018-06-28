@@ -24,18 +24,18 @@
         <span>推荐2</span>
         <span>吐槽1</span>
       </p>
-      <p class="look_content">
-        <span class="check"></span>只看有内容的评价
-      </p>
+      <div class="only_look">
+        <span></span>只看有内容的评价
+      </div>
       <ul class="ratings_lists">
         <li>
           <p>
             <span>2016/09/09</span>
             <span class="username">lofayo</span>
-            <span class="user_avatar"></span>
+            <img class="user_avatar" />
           </p>
           <p>
-            <span class="thumb"></span>
+            <img class="thumb" />
             <span>太少了，不够一个人吃</span>
           </p>
         </li>
@@ -45,9 +45,19 @@
 </template>
 
 <script>
-export default {
- 
-}
+  import data from '../data.json'
+  export default {
+    data() {
+      return {
+        food: {}
+      }
+    },
+    created() {
+      let index1 = this.$route.params.index1
+      let index2 = this.$route.params.index2
+      this.food = data[index1][index2]
+    }
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -55,7 +65,7 @@ export default {
   @import '../../static/css/mixin.styl'
   .content
     width: 100vw
-    min-height: 100vh
+    height: 100vh
     position: fixed
     top: 0
     left: 0
@@ -74,13 +84,15 @@ export default {
       &>p
         padding: 0 0.533333rem
         height: 1.466667rem
+        line-height: 0.8rem
       &>p:nth-child(2)
         display: flex
         flex-direction: column
         justify-content: space-around
+        .goods_name
+          font-size: 0.373333rem
+          font-weight: bold
       &>p:nth-child(3)
-        display: flex
-        align-items: center
         .now_price
           color: red
           font-size: 0.373333rem
@@ -91,13 +103,14 @@ export default {
           color: white
           padding: 0.133333rem 0.266667rem
           border-radius: 1.333333rem
-          flex: 1
-          text-align: right
           background: blue
+          float: right
+          line-height: 1.2
     .goods_intro
       padding: 0.533333rem
       .intro_title
         font-size: 0.373333rem
+        font-weight: bold
       &>p:nth-child(2)
         color: #666
         padding: 0.133333rem
@@ -110,7 +123,51 @@ export default {
         align-items: center
       .ratings_title
         font-size: 0.373333rem
+        font-weight: bold
       .check_btn
         &>span
           padding: 0.266667rem
+          margin-right: 0.266667rem
+          background: skyblue
+          color: #fff
+          &.active
+            background: yellowgreen
+            color: black
+      .only_look
+        padding: 0.266667rem 0
+        color: #999
+        display: flex
+        align-items: center
+        &>span
+          display: inline-block
+          width: 0.533333rem
+          height: 0.533333rem
+          margin-right: 0.266667rem    
+          bg('~images/right')
+        .only_content
+          bg('~images/right-green')
+      .ratings_lists
+        padding: 0.533333rem 0
+        border-top: 0.026667rem solid #ccc
+        &>li
+          line-height: 1.6
+          &>p:first-child
+            display: flex
+            align-items: center
+            .username
+              flex: 1
+              text-align: right
+              margin-right: 0.266667rem
+            .user_avatar
+              display: inline-block
+              width: 0.32rem
+              height: 0.32rem
+          &>p:nth-child(2)
+            display: flex
+            align-items: center
+            .thumb
+              width: 0.32rem
+              height: 0.32rem
+              margin-right: 0.266667rem
+          
 </style>

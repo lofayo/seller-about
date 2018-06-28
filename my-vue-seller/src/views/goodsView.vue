@@ -2,12 +2,16 @@
   <div class="content">
     <div class="category">
       <ul class="category_lists">
-        <li v-for='good of goods'>{{good.name}}</li>
+        <li v-for='(good,index) of goods'>
+          <a :class='{active: selectCategory === index}' @click='select(index)' :href="'#'+index">{{good.name}}</a>
+        </li>
       </ul>
     </div>
     <div class="category_items">
       <div class="item" v-for='(good,index1) of goods'>
-        <p class="item_title">{{good.name}}</p>
+        <p class="item_title">
+          <a :name='index1'>{{good.name}}</a>
+        </p>
         <div class="item_info" v-for='(food,index2) of good.foods'>
           <router-link :to="'/detail/'+index1+'/'+index2">
             <img class="food_img" :src="food.icon" alt="">
@@ -36,7 +40,8 @@
   export default {
     data() {
       return {
-        goods: data.goods
+        goods: data.goods,
+        selectCategory: 0
       }
     },
     methods: {
@@ -53,6 +58,9 @@
             $ball.style.transition = 'left 1s linear, top 1s ease-in';
         }, 20)
 
+      },
+      select(index) {
+        this.selectCategory = index
       }
     }
     
@@ -74,22 +82,22 @@
         position: fixed
         transition: left 1s linear, top 1s ease-in
       .category
+        overflow: auto
         .category_lists
           width: 2.16rem
           box-sizing: border-box
           padding: 0 0.266667rem
           background: #eee
-          height: 66vh
-          overflow: auto
-          &>li
+          &>li>a
             height: 1.48rem
             display: flex
             align-items: center
             border-bottom: 0.026667rem solid #ccc
+            &.active
+              background: white
           &>li:last-child
             border: none
       .category_items
-        height: 66vh
         overflow: auto
         flex: 1
         .item_title
@@ -136,6 +144,6 @@
               width: 0.64rem
               height: 0.64rem
               bg('~images/add')
-        .item_info:last-child
+        .item_info:last-child a
           border: none
 </style>

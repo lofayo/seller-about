@@ -114,6 +114,8 @@ export default {
 <style lang="stylus" scoped>
   @import '../../static/css/mixin.styl'
   .content
+    flex: 1
+    overflow: auto
     background: #eee
     &>section
       margin-bottom: 0.533333rem
