@@ -11,16 +11,31 @@ export default new Vuex.Store({
     shopedGoods: []
   },
   mutations: {
-    addNum(state) {
-      this.state.totalNum++
+    changeNum(state,num) {
+      state.totalNum += num
     },
     countTotalMoney(state, currentPrice) {
-      this.state.totalMoney += currentPrice
+      state.totalMoney += currentPrice
+    },
+    emptyShopedGoods(state) {
+      state.totalNum = 0
+      state.totalMoney = 0
+      state.shopedGoods.splice(0)
+    },
+    minusGoods(state, payload) {
+      let shopedGoods = state.shopedGoods
+      for (let i = 0; i < shopedGoods.length; i++) {
+        if (shopedGoods[i].name === payload.name) {
+          shopedGoods[i].num--
+          if (shopedGoods[i].num === 0) {
+            shopedGoods.splice(i,1)
+          }
+          return
+        }
+      }
     },
     addGoodsToCar(state, payload) {
-      console.log(payload,4444)
-
-      for (let item of this.state.shopedGoods) {
+      for (let item of state.shopedGoods) {
         if (item.name === payload.name) {
           item.num++
           return
@@ -30,10 +45,7 @@ export default new Vuex.Store({
       tempJson.name = payload.name
       tempJson.price = payload.price
       tempJson.num = 1
-      this.state.shopedGoods.push(tempJson)
-    },
-    emptyShopedGoods(state) {
-      this.state.shopedGoods.length = 0
+      state.shopedGoods.push(tempJson)
     }
   }
 })

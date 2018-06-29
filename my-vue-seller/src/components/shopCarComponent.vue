@@ -9,9 +9,9 @@
         <li v-for='item of shopedGoods'>
           <span>{{item.name}}</span>
           <span class="price">￥{{item.price}}</span>
-          <span class="minus"></span>
+          <span class="minus" @click='minusGoods(-1,item.name,item.price)'></span>
           <span>{{item.num}}</span>
-          <span class="add"></span>
+          <span class="add" @click='addGoods(1,item.name,item.price)'></span>
         </li>
       </ul>
     </div>
@@ -61,6 +61,16 @@ export default {
     },
     empty() {
       this.$store.commit('emptyShopedGoods')
+    },
+    addGoods(num,name,price) {
+      this.$store.commit('changeNum',num)
+      this.$store.commit('addGoodsToCar',{name})
+      this.$store.commit('countTotalMoney',price)
+    },
+    minusGoods(num,name,price) {
+      this.$store.commit('changeNum',num)
+      this.$store.commit('minusGoods',{name})
+      this.$store.commit('countTotalMoney',-price)
     }
   }
 }
@@ -70,7 +80,9 @@ export default {
 <style lang="stylus" scoped>
   @import '../../static/css/mixin.styl'
   .content
-    position: relative
+    // position: fixed
+    left: 0
+    bottom: 0
     .mask
       position: fixed
       left: 0

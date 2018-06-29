@@ -49,7 +49,6 @@
 
     methods: {
       parabola(evt,price,name) {
-        console.log(price,name)
         let $ball = document.getElementById('ball')
         console.log(evt.pageX,evt.pageY)
         $ball.style.display = 'block';
@@ -61,10 +60,9 @@
             $ball.style.left = '45px';
             $ball.style.transition = 'left 1s linear, top 1s ease-in';
             setTimeout(()=>{
-              this.$store.commit('addNum')
+              this.$store.commit('changeNum',1)
               this.$store.commit('countTotalMoney',price)
               this.$store.commit('addGoodsToCar',{price,name})
-              console.log(price,name,333)
             },1000)
         }, 20)
       },
