@@ -1,42 +1,41 @@
 <template>
   <div class="content">
-    <!-- <h3>{{$route.params.index1}}，{{$route.params.index2}}</h3> -->
     <section class="goods_info">
-      <img class="goods_img" src="" alt="">
+      <img class="goods_img" :src="food.image" alt="">
       <p>
-        <span class="goods_name">皮蛋瘦肉粥</span>
-        <span>月售1132份&nbsp;&nbsp;好评率100%</span>
+        <span class="goods_name">{{food.name}}</span>
+        <span>月售{{food.sellCount}}份&nbsp;&nbsp;好评率{{food.rating}}%</span>
       </p>
       <p>
-        <span class="now_price">￥24</span>
-        <span class="history_price">￥28</span>
+        <span class="now_price">￥{{food.price}}</span>
+        <span v-if='food.oldPrice' class="history_price">￥{{food.oldPrice}}</span>
         <span class="add_shop_car">加入购物车</span>
       </p>
     </section>
     <section class="goods_intro">
       <p class="intro_title">商品介绍</p>
-      <p>商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍</p>
+      <p>{{food.info ? food.info : '......'}}</p>
     </section>
     <section class="goods_ratings">
       <p class="ratings_title">商品评价</p>
       <p class="check_btn">
-        <span>全部3</span>
-        <span>推荐2</span>
-        <span>吐槽1</span>
+        <span :class='{active: currentRateType === 2}' @click='filterRatingArray(2,isOnlyContent)'>全部{{food.ratings.length}}</span>
+        <span :class='{active: currentRateType === 0}' @click='filterRatingArray(0,isOnlyContent)'>推荐{{food.ratings.filter((item)=> item.rateType === 0).length}}</span>
+        <span :class='{active: currentRateType === 1}' @click='filterRatingArray(1,isOnlyContent)'>吐槽{{food.ratings.filter((item)=> item.rateType === 1).length}}</span>
       </p>
-      <div class="only_look">
-        <span></span>只看有内容的评价
+      <div class="only_look" @click='checkOnlyContent'>
+        <span :class="{only_content:isOnlyContent}"></span>只看有内容的评价
       </div>
       <ul class="ratings_lists">
-        <li>
+        <li v-for='rating of filterRatings'>
           <p>
-            <span>2016/09/09</span>
-            <span class="username">lofayo</span>
-            <img class="user_avatar" />
+            <span>{{utils.timestampToTime(rating.rateTime)}}</span>
+            <span class="username">{{rating.username}}</span>
+            <img class="user_avatar" :src="rating.avatar" />
           </p>
           <p>
-            <img class="thumb" />
-            <span>太少了，不够一个人吃</span>
+            <img :src='rating.rateType === 0 ? "../../static/images/thumbs_up.png" : "../../static/images/thumbs_down.png"' class="thumb" />
+            <span>{{rating.text ? rating.text : '......'}}</span>
           </p>
         </li>
       </ul>
@@ -46,16 +45,45 @@
 
 <script>
   import data from '../data.json'
+  import utils from '@static/js/utils'
+
   export default {
     data() {
       return {
-        food: {}
+        food: {},
+        filterRatings: [],
+        isOnlyContent: false,
+        currentRateType: 2,
+        utils
       }
     },
     created() {
       let index1 = this.$route.params.index1
       let index2 = this.$route.params.index2
-      this.food = data[index1][index2]
+      this.food = data.goods[index1].foods[index2]
+      this.filterRatings = this.food.ratings
+    },
+    methods: {
+      filterRatingArray(rateType, isOnlyContent) {
+        this.currentRateType = rateType
+        this.filterRatings = this.food.ratings.filter(item => {
+          if (isOnlyContent) {
+            if (rateType !== 2) {
+              return item.text !== '' && item.rateType === rateType 
+            }
+            return item.text !== ''
+          } else {
+            if (rateType !== 2) {
+              return item.rateType === rateType 
+            }
+            return true
+          }
+        })
+      },
+      checkOnlyContent() {
+        this.isOnlyContent = !this.isOnlyContent
+        this.filterRatingArray(this.currentRateType,this.isOnlyContent)
+      }  
     }
   }
 </script>
@@ -75,6 +103,8 @@
     &>section
       margin-bottom: 0.533333rem
       background: white
+    &>section:last-child
+      margin: 0
     .goods_info
       display: flex
       flex-direction: column
@@ -151,6 +181,7 @@
         border-top: 0.026667rem solid #ccc
         &>li
           line-height: 1.6
+          margin-bottom: 0.266667rem
           &>p:first-child
             display: flex
             align-items: center
@@ -162,6 +193,7 @@
               display: inline-block
               width: 0.32rem
               height: 0.32rem
+              border-radius: 50%
           &>p:nth-child(2)
             display: flex
             align-items: center

@@ -27,6 +27,9 @@ export default new Router({
     }, {
       path: '/detail/:index1/:index2',
       component: goodsDetailView
+    }, {
+      path: '*',
+      redirect: '/goods'
     }
   ]
 })

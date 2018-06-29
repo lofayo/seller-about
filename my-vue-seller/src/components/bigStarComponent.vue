@@ -7,18 +7,18 @@
 
 <script>
 
-  import starArray from '../../static/js/utils.js'
-export default {
-  props: ['score'],
-  data() {
-    return {
-      starArray:[],
+  import utils from '@static/js/utils'
+  export default {
+    props: ['score'],
+    data() {
+      return {
+        starArray:[],
+      }
+    },
+    created: function() {
+      this.starArray = utils.starArray(this.score)
     }
-  },
-  created: function() {
-    this.starArray = starArray.starArray(this.score)
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

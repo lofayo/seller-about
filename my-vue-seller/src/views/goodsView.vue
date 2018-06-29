@@ -26,7 +26,9 @@
                 <span v-if='food.oldPrice' class="history_price">￥{{food.oldPrice}}</span>
               </p>
             </div>
-            <div class="add_goods"></div>
+            <div class="add_goods" @click.prevent='parabola($event,food.price,food.name)'>
+              <span class="ball"></span>
+            </div>
           </router-link>
         </div>
       </div>
@@ -41,11 +43,13 @@
     data() {
       return {
         goods: data.goods,
-        selectCategory: 0
+        selectCategory: 0,
       }
     },
+
     methods: {
-      parabola(evt) {
+      parabola(evt,price,name) {
+        console.log(price,name)
         let $ball = document.getElementById('ball')
         console.log(evt.pageX,evt.pageY)
         $ball.style.display = 'block';
@@ -56,8 +60,13 @@
             $ball.style.top = '614px';
             $ball.style.left = '45px';
             $ball.style.transition = 'left 1s linear, top 1s ease-in';
+            setTimeout(()=>{
+              this.$store.commit('addNum')
+              this.$store.commit('countTotalMoney',price)
+              this.$store.commit('addGoodsToCar',{price,name})
+              console.log(price,name,333)
+            },1000)
         }, 20)
-
       },
       select(index) {
         this.selectCategory = index

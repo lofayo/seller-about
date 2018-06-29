@@ -41,7 +41,7 @@
               <bigStarComponent :score='rating.score' />
             </div>
             <div>
-              <p>{{timestampToTime(rating.rateTime)}}</p>
+              <p>{{utils.timestampToTime(rating.rateTime)}}</p>
               <p>{{rating.deliveryTime ? rating.deliveryTime : '?'}}分钟送达</p>
             </div>
           </div>
@@ -49,7 +49,7 @@
             {{rating.text}}
           </div>
           <div class="rating_thumb">
-            <span v-if='rating.recommend.length > 0' class="thumb_up"></span>
+            <img :src='rating.rateType === 0 ? "../../static/images/thumbs_up.png" : "../../static/images/thumbs_down.png"' class="thumb" />
             <span v-for='item of rating.recommend' class="rating_goods">{{item}}</span>
           </div>
         </li>
@@ -62,52 +62,46 @@
   import bigStarComponent from '@/components/bigStarComponent'
   import data from '../data.json'
 
-export default {
-  data() {
-    return {
-      ratings: data.ratings,
-      seller: data.seller,
-      filterRatings: data.ratings,
-      isOnlyContent: false,
-      currentRateType: 2
-    }
-  },
-  components:{
-    bigStarComponent
-  },
-  methods: {
-    timestampToTime:function(timestamp) {  
-      let date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000  
-      let Y = date.getFullYear() + '-';  
-      let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';  
-      let D = date.getDate() + ' ';  
-      let h = date.getHours() + ':';  
-      let m = date.getMinutes(); 
-      return Y+M+D+h+m;  
-    },
-    filterRatingArray(rateType, isOnlyContent) {
-      this.currentRateType = rateType
-      this.filterRatings = this.ratings.filter(item => {
-        if (isOnlyContent) {
-          if (rateType !== 2) {
-            return item.text !== '' && item.rateType === rateType 
-          }
-          return item.text !== ''
-        } else {
-          if (rateType !== 2) {
-            return item.rateType === rateType 
-          }
-          return true
-        }
-      })
-    },
-    checkOnlyContent() {
-      this.isOnlyContent = !this.isOnlyContent
-      this.filterRatingArray(this.currentRateType,this.isOnlyContent)
-    }  
-  }
+  import utils from '@static/js/utils'
 
-}
+  export default {
+    data() {
+      return {
+        ratings: data.ratings,
+        seller: data.seller,
+        filterRatings: data.ratings,
+        isOnlyContent: false,
+        currentRateType: 2,
+        utils
+      }
+    },
+    components:{
+      bigStarComponent
+    },
+    methods: {
+      filterRatingArray(rateType, isOnlyContent) {
+        this.currentRateType = rateType
+        this.filterRatings = this.ratings.filter(item => {
+          if (isOnlyContent) {
+            if (rateType !== 2) {
+              return item.text !== '' && item.rateType === rateType 
+            }
+            return item.text !== ''
+          } else {
+            if (rateType !== 2) {
+              return item.rateType === rateType 
+            }
+            return true
+          }
+        })
+      },
+      checkOnlyContent() {
+        this.isOnlyContent = !this.isOnlyContent
+        this.filterRatingArray(this.currentRateType,this.isOnlyContent)
+      }  
+    }
+
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -155,7 +149,7 @@ export default {
         display: flex
         padding-bottom: 0.266667rem
         border-bottom: 1px solid #ccc
-        .active
+        &.active
           background: yellowgreen
           color: black
         &>p
@@ -217,14 +211,8 @@ export default {
               margin-right: 0.266667rem
               padding: 0.066667rem 0.266667rem
               border: 0.026667rem solid #ccc
-            .thumb_up
+            .thumb
               width: 0.32rem
               height: 0.32rem
-              border: none
-              bg('~images/thumbs_up')
-            .thumb_down
-              width: 0.32rem
-              height: 0.32rem
-              border: none
-              bg('~images/thumbs_down')
+              margin-right: 0.266667rem
 </style>

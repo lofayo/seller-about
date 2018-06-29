@@ -66,22 +66,22 @@
   import bigStarComponent from '@/components/bigStarComponent'
   import data from '../data.json'
 
-export default {
-  data() {
-    return {
-      seller: data.seller
+  export default {
+    data() {
+      return {
+        seller: data.seller
+      }
+    },
+    components: {
+      bigStarComponent
+    },
+    methods: {
+      generateClass(index) {
+        return 'discount_' + index
+      }
     }
-  },
-  components: {
-    bigStarComponent
-  },
-  methods: {
-    generateClass(index) {
-      return 'discount_' + index
-    }
+   
   }
- 
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -3,44 +3,25 @@
     <div class="shop_car_goods_lists" :class='{active: isShowShopGoods}'>
       <p class="shop_car_title">
         <span>购物车</span>
-        <span class="clear">清空</span>
+        <span @click='empty' class="clear">清空</span>
       </p>
-      <ul class="shop_goods_lists">
-        <li>
-          <span>莲子核桃黑米粥</span>
-          <span class="price">￥10</span>
+      <ul v-if='shopedGoods.length > 0' class="shop_goods_lists">
+        <li v-for='item of shopedGoods'>
+          <span>{{item.name}}</span>
+          <span class="price">￥{{item.price}}</span>
           <span class="minus"></span>
-          <span>1</span>
-          <span class="add"></span>
-        </li>
-        <li>
-          <span>莲子核桃黑米粥</span>
-          <span class="price">￥10</span>
-          <span class="minus"></span>
-          <span>1</span>
-          <span class="add"></span>
-        </li>
-        <li>
-          <span>莲子核桃黑米粥</span>
-          <span class="price">￥10</span>
-          <span class="minus"></span>
-          <span>1</span>
-          <span class="add"></span>
-        </li>
-        <li>
-          <span>莲子核桃黑米粥</span>
-          <span class="price">￥10</span>
-          <span class="minus"></span>
-          <span>1</span>
+          <span>{{item.num}}</span>
           <span class="add"></span>
         </li>
       </ul>
     </div>
     <div class="shop_car_init" @click='showHideShopGoods'>
-      <div class="shop_car"></div>
-      <div class="money">￥0</div>
+      <div class="shop_car" :class='{active: totalNum > 0}'>
+        <span class="totalNum" :class='{active: totalNum > 0}'>{{totalNum}}</span>
+      </div>
+      <div class="money">￥{{totalMoney}}</div>
       <div class="other_pay">另需配送费￥4元</div>
-      <div class="check">￥20起送</div>
+      <div class="check" @click='check' :class='{active: totalMoney > 20}'>{{ totalMoney > 20 ? '去结算' : '￥20起送'}}</div>
     </div>
     <div class="mask" @click='showHideShopGoods' :class='{active: isShowMask}'>
       
@@ -56,12 +37,32 @@ export default {
       isShowMask: false
     }
   },
+  computed: {
+    totalNum() {
+      return this.$store.state.totalNum
+    },
+    totalMoney() {
+      return this.$store.state.totalMoney
+    },
+    shopedGoods() {
+      return this.$store.state.shopedGoods
+    }
+  },
   methods: {
     showHideShopGoods() {
       this.isShowShopGoods = !this.isShowShopGoods
       this.isShowMask = !this.isShowMask
+    },
+    check(e) {
+      if (this.totalMoney > 20) {
+        e.stopPropagation()
+        alert(this.totalMoney)
+      }
+    },
+    empty() {
+      this.$store.commit('emptyShopedGoods')
     }
-  } 
+  }
 }
 </script>
 
@@ -93,6 +94,8 @@ export default {
       width: 100%
       padding-bottom: 0.533333rem
       box-shadow: 0 -0.026667rem 0.133333rem 0.026667rem #ccc
+      max-height: 5.333333rem
+      overflow: auto
       .shop_car_title
         height: 1.066667rem
         padding: 0 0.533333rem
@@ -139,15 +142,36 @@ export default {
       position: relative
       z-index: 1
       .shop_car
+        position: relative
         width: 1.2rem
         height: 1.2rem
-        bg('~images/shop_car')
+        background-image: url('~images/shop_car.png')
+        background-repeat: no-repeat
+        background-position: center
         background-size: 0.6rem 0.6rem
         background-color: #707070
         border: 0.133333rem solid #778899
         border-radius: 50%
         margin-top: -0.533333rem
         margin-left: 0.533333rem
+        &.active
+          background-image: url('~images/shop_car_green.png')
+          background-color: skyblue
+        .totalNum
+          position: absolute
+          left: 0.833333rem
+          top: 0
+          display: inline-block
+          padding: 0 0.133333rem
+          height: 0.4rem
+          line-height: 0.4rem
+          border-radius: 1.333333rem
+          background: #ccc
+          color: white
+          font-size: 0.32rem
+          text-align: center
+          &.active
+            background: #00EE00
       .money
         padding: 0.133333rem 0.533333rem
         border-right: 0.026667rem solid #ccc
@@ -161,4 +185,6 @@ export default {
         align-items: center
         justify-content: center
         background: #707070
+        &.active
+          background: #00EE00
 </style>
