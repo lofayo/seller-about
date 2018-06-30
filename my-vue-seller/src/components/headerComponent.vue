@@ -161,7 +161,7 @@
         white-space: nowrap
         overflow: hidden
         text-overflow: ellipsis
-        background: url('../../static/images/svg/arrow_right.svg') no-repeat right center / 1.066667rem 0.533333rem
+        background: url('../../static/images/arrow-right.png') no-repeat right center / 0.64rem 0.64rem
         background-color: rgba(7,17,27,0.2)
         .ad_logo
           display: inline-block
@@ -194,7 +194,7 @@
       text-align: center
       color: white
       font-size: 0.32rem
-      z-index: 1
+      z-index: 3
       height: 100vh
       padding-bottom: 0
       transition: all 0.5s
@@ -262,7 +262,7 @@
       .close
         width: 0.506667rem
         height: 0.506667rem
-        background: url('../../static/images/svg/close.svg') no-repeat center / cover
+        background: url('../../static/images/close.png') no-repeat center / cover
         margin: 0.853333rem auto
         margin-top: -2.666667rem
         background-color: white

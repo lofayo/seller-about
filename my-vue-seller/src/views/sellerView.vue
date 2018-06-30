@@ -89,7 +89,8 @@
   @import '../../static/css/mixin.styl'
   .content
     flex: 1
-    overflow: auto
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
     background: #eee
     &>section
       margin-bottom: 0.533333rem
@@ -169,7 +170,8 @@
       .img_lists
         display: flex
         width: 100%
-        overflow: auto
+        overflow-y: auto
+        -webkit-overflow-scrolling: touch
         &>li
           width: 3.2rem
           height: 2.4rem

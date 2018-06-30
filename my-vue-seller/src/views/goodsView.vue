@@ -49,6 +49,7 @@
 
     methods: {
       parabola(evt,price,name) {
+
         let $ball = document.getElementById('ball')
         console.log(evt.pageX,evt.pageY)
         $ball.style.display = 'block';
@@ -56,8 +57,8 @@
         $ball.style.left = evt.pageX+'px';
         $ball.style.transition = 'left 0s, top 0s';
         setTimeout(()=>{
-            $ball.style.top = '614px';
-            $ball.style.left = '45px';
+            $ball.style.top = (document.body.clientHeight - 25)/37.5+'rem';
+            $ball.style.left = '0.6rem';
             $ball.style.transition = 'left 1s linear, top 1s ease-in';
             setTimeout(()=>{
               this.$store.commit('changeNum',1)
@@ -80,6 +81,7 @@
     .content
       display: flex
       flex: 1
+      margin-bottom: 1.333333rem
       #ball
         display: none
         width: 0.32rem
@@ -89,23 +91,24 @@
         position: fixed
         transition: left 1s linear, top 1s ease-in
       .category
-        overflow: auto
+        overflow-y: auto
+        -webkit-overflow-scrolling: touch
         .category_lists
           width: 2.16rem
           box-sizing: border-box
-          padding: 0 0.266667rem
           background: #eee
           &>li>a
             height: 1.48rem
             display: flex
             align-items: center
-            border-bottom: 0.026667rem solid #ccc
+            padding: 0 0.266667rem
             &.active
               background: white
           &>li:last-child
             border: none
       .category_items
-        overflow: auto
+        overflow-y: auto
+        -webkit-overflow-scrolling: touch
         flex: 1
         .item_title
           color: #666

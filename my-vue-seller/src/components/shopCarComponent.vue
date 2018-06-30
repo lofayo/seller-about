@@ -19,9 +19,9 @@
       <div class="shop_car" :class='{active: totalNum > 0}'>
         <span class="totalNum" :class='{active: totalNum > 0}'>{{totalNum}}</span>
       </div>
-      <div class="money">￥{{totalMoney}}</div>
+      <div class="money">合计:￥{{totalMoney}}</div>
       <div class="other_pay">另需配送费￥4元</div>
-      <div class="check" @click='check' :class='{active: totalMoney > 20}'>{{ totalMoney > 20 ? '去结算' : '￥20起送'}}</div>
+      <div class="check" @click='check' :class='{active: totalMoney >= 20}'>{{ totalMoney >= 20 ? '去结算('+totalMoney+'+'+4+')' : '￥20起送'}}</div>
     </div>
     <div class="mask" @click='showHideShopGoods' :class='{active: isShowMask}'>
       
@@ -56,11 +56,12 @@ export default {
     check(e) {
       if (this.totalMoney > 20) {
         e.stopPropagation()
-        alert(this.totalMoney)
+        alert('合计：'+(this.totalMoney+4))
       }
     },
     empty() {
       this.$store.commit('emptyShopedGoods')
+      this.showHideShopGoods()
     },
     addGoods(num,name,price) {
       this.$store.commit('changeNum',num)
@@ -80,9 +81,7 @@ export default {
 <style lang="stylus" scoped>
   @import '../../static/css/mixin.styl'
   .content
-    // position: fixed
-    left: 0
-    bottom: 0
+    position: relative
     .mask
       position: fixed
       left: 0
@@ -100,14 +99,15 @@ export default {
       position: fixed
       left: 0
       bottom: 1.333333rem
+      z-index: 2
       transform: translate(0, 100%)
-      z-index: 1
       transition: all 0.5s
       width: 100%
       padding-bottom: 0.533333rem
       box-shadow: 0 -0.026667rem 0.133333rem 0.026667rem #ccc
       max-height: 5.333333rem
-      overflow: auto
+      overflow-y: auto
+      -webkit-overflow-scrolling: touch
       .shop_car_title
         height: 1.066667rem
         padding: 0 0.533333rem
@@ -146,13 +146,17 @@ export default {
       &.active
         transform: translate(0, 0)
     .shop_car_init
+      position: fixed
+      left: 0
+      bottom: 0
+      z-index: 2
       display: flex
       height: 1.333333rem
+      width: 100%
       background: #778899 
       align-items: center
       color: white
-      position: relative
-      z-index: 1
+      
       .shop_car
         position: relative
         width: 1.2rem
@@ -182,13 +186,16 @@ export default {
           color: white
           font-size: 0.32rem
           text-align: center
+          display: none
           &.active
+            display: block
             background: #00EE00
+            color: black
       .money
-        padding: 0.133333rem 0.533333rem
+        padding: 0.133333rem 0.266667rem
         border-right: 0.026667rem solid #ccc
       .other_pay
-        padding: 0.133333rem 0.533333rem
+        padding: 0.133333rem 0.266667rem
         flex: 1
       .check
         width: 2.84rem
@@ -199,4 +206,5 @@ export default {
         background: #707070
         &.active
           background: #00EE00
+          color: black
 </style>

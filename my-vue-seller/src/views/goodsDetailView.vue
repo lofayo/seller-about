@@ -9,7 +9,7 @@
       <p>
         <span class="now_price">￥{{food.price}}</span>
         <span v-if='food.oldPrice' class="history_price">￥{{food.oldPrice}}</span>
-        <span class="add_shop_car">加入购物车</span>
+        <span class="add_shop_car" @click='addGoods($event,1,food.name,food.price)'>加入购物车</span>
       </p>
     </section>
     <section class="goods_intro">
@@ -40,6 +40,7 @@
         </li>
       </ul>
     </section>
+    <div id="ball"></div>
   </div>
 </template>
 
@@ -83,7 +84,25 @@
       checkOnlyContent() {
         this.isOnlyContent = !this.isOnlyContent
         this.filterRatingArray(this.currentRateType,this.isOnlyContent)
-      }  
+      },
+      addGoods(evt,num,name,price) {
+        let $ball = document.getElementById('ball')
+        console.log(evt.pageX,evt.pageY)
+        $ball.style.display = 'block';
+        $ball.style.top = evt.pageY+'px';
+        $ball.style.left = evt.pageX+'px';
+        $ball.style.transition = 'left 0s, top 0s';
+        setTimeout(()=>{
+            $ball.style.top = (document.body.clientHeight - 25)/37.5+'rem';
+            $ball.style.left = '45px';
+            $ball.style.transition = 'left 1s linear, top 1s ease-in';
+            setTimeout(()=>{
+              this.$store.commit('changeNum',1)
+              this.$store.commit('countTotalMoney',price)
+              this.$store.commit('addGoodsToCar',{price,name})
+            },1000)
+        }, 20)
+      },  
     }
   }
 </script>
@@ -97,9 +116,17 @@
     position: fixed
     top: 0
     left: 0
-    z-index: 5
     background: #eee
-    overflow: auto
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+    #ball
+      display: none
+      width: 0.32rem
+      height: 0.32rem
+      border-radius: 50%
+      background: green
+      position: fixed
+      transition: left 1s linear, top 1s ease-in
     &>section
       margin-bottom: 0.533333rem
       background: white

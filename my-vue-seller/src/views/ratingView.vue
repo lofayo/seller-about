@@ -109,7 +109,8 @@
   @import '../../static/css/mixin.styl'
   .content
     flex: 1
-    overflow: auto
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
     background: #eee
     &>section
       margin-bottom: 0.533333rem
