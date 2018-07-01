@@ -115,7 +115,7 @@ export default {
         display: flex
         justify-content: space-between
         align-items: center
-        border-bottom: 0.026667rem solid #ccc
+        border-bottom: 1px solid #ccc
         .clear
           color: blue
       .shop_goods_lists
@@ -125,7 +125,7 @@ export default {
           display: flex
           justify-content: space-between
           align-items: center
-          border-bottom: 0.026667rem solid #ccc
+          border-bottom: 1px solid #ccc
           &>span
             margin-left: 0.533333rem
           .price

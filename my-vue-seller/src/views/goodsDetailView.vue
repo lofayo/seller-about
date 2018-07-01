@@ -47,6 +47,8 @@
 <script>
   import data from '../data.json'
   import utils from '@static/js/utils'
+  
+  import axios from 'axios'
 
   export default {
     data() {
@@ -62,7 +64,15 @@
       let index1 = this.$route.params.index1
       let index2 = this.$route.params.index2
       this.food = data.goods[index1].foods[index2]
-      this.filterRatings = this.food.ratings
+      let _this = this
+      axios.get('http://rap2api.taobao.org/app/mock/18999//seller/ratings')
+        .then(function (response) {
+          _this.food.ratings = response.data.ratings
+          _this.filterRatings = _this.food.ratings
+        })
+        .catch(function (error) {
+          console.log(error)
+        });
     },
     methods: {
       filterRatingArray(rateType, isOnlyContent) {
@@ -93,7 +103,7 @@
         $ball.style.left = evt.pageX+'px';
         $ball.style.transition = 'left 0s, top 0s';
         setTimeout(()=>{
-            $ball.style.top = (document.body.clientHeight - 25)/37.5+'rem';
+            $ball.style.top = (document.body.clientHeight - 25)/75+'rem';
             $ball.style.left = '45px';
             $ball.style.transition = 'left 1s linear, top 1s ease-in';
             setTimeout(()=>{

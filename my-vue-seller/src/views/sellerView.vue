@@ -180,6 +180,8 @@
           &>img
             width: 100%
             height: 100%
+        overflow-y: auto
+        -webkit-overflow-scrolling: touch
     .section_4
       margin-bottom: 0
       .seller_mes

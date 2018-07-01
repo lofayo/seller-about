@@ -80,7 +80,7 @@
 		
 			//common.styl
 			.border_bottom1px
-				border-bottom: 0.026667rem solid #ECECEC
+				border-bottom: 1px solid #ECECEC
 		
 			引入方法：全局引用（main.js引入）
 			//main.js
@@ -90,7 +90,7 @@
 			
 			//mixin.styl
 			border_bottom1px
-				border-bottom: 0.026667rem solid #ECECEC
+				border-bottom: 1px solid #ECECEC
 			
 			引入方法：每个视图文件的样式里单独引入
 			//headerComponent.vue

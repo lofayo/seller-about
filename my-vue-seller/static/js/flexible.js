@@ -50,10 +50,12 @@
     }
     scale = 1 / dpr;
   }
+  // 1、标识当前页面的dpr
   docEl.setAttribute('data-dpr', dpr);
   if (!metaEl) {
     metaEl = doc.createElement('meta');
     metaEl.setAttribute('name', 'viewport');
+    // 2、根据当前dpr设置了页面缩放比
     metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
     if (docEl.firstElementChild) {
       docEl.firstElementChild.appendChild(metaEl);

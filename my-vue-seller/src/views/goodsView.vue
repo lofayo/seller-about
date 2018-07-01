@@ -57,7 +57,7 @@
         $ball.style.left = evt.pageX+'px';
         $ball.style.transition = 'left 0s, top 0s';
         setTimeout(()=>{
-            $ball.style.top = (document.body.clientHeight - 25)/37.5+'rem';
+            $ball.style.top = (document.body.clientHeight - 25)/75+'rem';
             $ball.style.left = '0.6rem';
             $ball.style.transition = 'left 1s linear, top 1s ease-in';
             setTimeout(()=>{
@@ -124,7 +124,7 @@
             align-items: center
             padding: 0.533333rem 0
             margin: 0 0.533333rem
-            border-bottom: 0.026667rem solid #ccc
+            border-bottom: 1px solid #ccc
             .food_img
               width: 1.52rem
               height: 1.52rem

@@ -7,6 +7,8 @@
 </template>
 
 <script>
+  
+
   import headerComponent from '@/components/headerComponent'
   import shopCarComponent from '@/components/shopCarComponent'
   export default {
@@ -17,6 +19,7 @@
     mounted() {
       // alert(document.body.clientHeight)
       // alert(document.body.clientWidth)
+
     }
   }
 </script>
