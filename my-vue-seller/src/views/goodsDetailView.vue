@@ -27,7 +27,7 @@
         <span :class="{only_content:isOnlyContent}"></span>只看有内容的评价
       </div>
       <ul class="ratings_lists">
-        <li v-for='rating of filterRatings'>
+        <li v-for='rating of filterRatings' class="border_bottom1px" :style="{backgroundColor: rating.backgroundColor}">
           <p>
             <span>{{utils.timestampToTime(rating.rateTime)}}</span>
             <span class="username">{{rating.username}}</span>
@@ -218,6 +218,7 @@
         border-top: 0.026667rem solid #ccc
         &>li
           line-height: 1.6
+          padding-bottom: 0.266667rem
           margin-bottom: 0.266667rem
           &>p:first-child
             display: flex
@@ -228,8 +229,8 @@
               margin-right: 0.266667rem
             .user_avatar
               display: inline-block
-              width: 0.32rem
-              height: 0.32rem
+              width: 0.64rem
+              height: 0.64rem
               border-radius: 50%
           &>p:nth-child(2)
             display: flex

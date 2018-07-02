@@ -49,7 +49,6 @@
 
     methods: {
       parabola(evt,price,name) {
-
         let $ball = document.getElementById('ball')
         console.log(evt.pageX,evt.pageY)
         $ball.style.display = 'block';
