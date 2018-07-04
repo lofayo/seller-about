@@ -26,7 +26,7 @@
                 <span v-if='food.oldPrice' class="history_price">￥{{food.oldPrice}}</span>
               </p>
             </div>
-            <div class="add_goods" @click.prevent='parabola($event,food.price,food.name)'>
+            <div class="add_goods" @click='parabola($event,food.price,food.name)'>
               <span class="ball"></span>
             </div>
           </router-link>
@@ -46,10 +46,8 @@
         selectCategory: 0,
       }
     },
-
     methods: {
       parabola(evt,price,name) {
-
         let $ball = document.getElementById('ball')
         console.log(evt.pageX,evt.pageY)
         $ball.style.display = 'block';
