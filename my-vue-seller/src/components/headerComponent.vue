@@ -54,7 +54,6 @@
 <script>
   import data from '../data.json'
   import bigStarComponent from '@/components/bigStarComponent'
-  console.log(data)
   export default {
     data() {
       return {
