@@ -49,14 +49,13 @@
     methods: {
       parabola(evt,price,name) {
         let $ball = document.getElementById('ball')
-        console.log(evt.pageX,evt.pageY)
         $ball.style.display = 'block';
         $ball.style.top = evt.pageY+'px';
         $ball.style.left = evt.pageX+'px';
         $ball.style.transition = 'left 0s, top 0s';
         setTimeout(()=>{
-            $ball.style.top = (document.body.clientHeight - 25)/75+'rem';
-            $ball.style.left = '0.6rem';
+            $ball.style.top = document.documentElement.clientHeight - 20 * window.devicePixelRatio +'px';
+            $ball.style.left = '45px';
             $ball.style.transition = 'left 1s linear, top 1s ease-in';
             setTimeout(()=>{
               this.$store.commit('changeNum',1)
