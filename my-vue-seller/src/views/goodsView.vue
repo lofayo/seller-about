@@ -26,7 +26,7 @@
                 <span v-if='food.oldPrice' class="history_price">￥{{food.oldPrice}}</span>
               </p>
             </div>
-            <div class="add_goods" @click='parabola($event,food.price,food.name)'>
+            <div class="add_goods" @click.prevent='parabola($event,food.price,food.name)'>
               <span class="ball"></span>
             </div>
           </router-link>
